@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Python dependencies
+        run: python -m pip install --target vendor -r requirements.txt
+      - name: Python tests (isolated fixtures, no DSH installation required)
+        run: python -X utf8 -m unittest discover -v
+      - name: Node tests
+        run: node --test test_plugin_entries.mjs test_source_metadata.mjs

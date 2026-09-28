@@ -1,0 +1,13 @@
+# Local DSH paths, settings, reports, encrypted snapshots and installation records.
+/local.json
+/state/
+/vendor/
+/.venv/
+/work/
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+*.dpapi
+*.lnk
